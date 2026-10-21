@@ -3,135 +3,341 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alexander Hamilton</title>
+    <title>For King & Country</title>
     <style>
-      body {
-        margin: 0;
-        background: linear-gradient(180deg, #f4efe8 0%, #ece4d8 100%);
-        font-family: Georgia, "Times New Roman", serif;
-        color: #1f1f1f;
+      :root {
+        --bg-1: #0b1020;
+        --bg-2: #161d2c;
+        --panel: rgba(255, 255, 255, 0.06);
+        --gold: #f3c76b;
+        --gold-soft: #f9e3a7;
+        --text: #f5f3ee;
+        --muted: #d9d1c7;
+        --line: rgba(255, 255, 255, 0.12);
+        --spotify: #1db954;
       }
 
-      .document {
-        max-width: 900px;
-        margin: 40px auto;
-        background: #fffdf9;
-        border: 1px solid #d9ccb4;
-        box-shadow: 0 10px 30px rgba(40, 30, 20, 0.08);
-        padding: 40px 50px 50px;
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(243, 199, 107, 0.18), transparent 25%),
+          linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+        color: var(--text);
+      }
+
+      .page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 36px;
+        align-items: center;
+        min-height: 560px;
+      }
+
+      .eyebrow {
+        margin: 0 0 18px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 0.76rem;
+        color: var(--gold-soft);
+        font-weight: 700;
       }
 
       h1 {
-        text-align: center;
-        font-size: 3rem;
-        letter-spacing: 0.05em;
-        margin-bottom: 10px;
-        color: #3a2a1d;
+        margin: 0;
+        font-size: clamp(3rem, 5vw, 5.2rem);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
       }
 
-      .subtitle {
-        text-align: center;
-        font-size: 1.05rem;
-        font-style: italic;
-        color: #5c4c3a;
-        margin-bottom: 25px;
+      .lead {
+        margin: 22px 0 28px;
+        max-width: 620px;
+        font-size: 1.18rem;
+        line-height: 1.8;
+        color: var(--muted);
       }
 
-      .gallery {
+      .button-row {
         display: flex;
-        justify-content: center;
-        gap: 18px;
         flex-wrap: wrap;
-        margin: 25px 0 35px;
+        gap: 14px;
+        margin-top: 12px;
       }
 
-      .gallery img {
-        width: 220px;
-        height: 180px;
-        object-fit: cover;
-        border: 1px solid #c9b38d;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      }
-
-      p {
-        font-size: 1.08rem;
-        line-height: 1.8;
-        margin: 0 0 1.2em;
-      }
-
-      ul {
-        margin: 0 0 1.5em 1.5em;
-        padding-left: 1rem;
-      }
-
-      li {
-        line-height: 1.8;
-        font-size: 1.05rem;
-        margin-bottom: 0.5em;
-      }
-
-      .spotify {
+      .button {
         display: inline-block;
-        margin-top: 10px;
-        padding: 12px 24px;
-        background: #1db954;
-        color: #fff;
-        text-decoration: none;
+        padding: 14px 22px;
         border-radius: 999px;
-        font-weight: bold;
-        letter-spacing: 0.03em;
+        text-decoration: none;
+        font-weight: 700;
+        transition: transform 0.2s ease, opacity 0.2s ease;
       }
 
-      .spotify:hover {
-        background: #1aa34a;
+      .button:hover {
+        transform: translateY(-1px);
+        opacity: 0.95;
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--gold), #dca84a);
+        color: #1d1205;
+        box-shadow: 0 12px 28px rgba(243, 199, 107, 0.35);
+      }
+
+      .button.secondary {
+        color: var(--text);
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .hero-visual {
+        position: relative;
+      }
+
+      .hero-visual img {
+        width: 100%;
+        height: 540px;
+        object-fit: cover;
+        border-radius: 24px;
+        border: 1px solid var(--line);
+        box-shadow: 0 28px 60px rgba(0, 0, 0, 0.38);
+      }
+
+      .hero-visual::after {
+        content: "";
+        position: absolute;
+        inset: 18px auto auto 18px;
+        width: 135px;
+        height: 135px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(243, 199, 107, 0.5), transparent 60%);
+        filter: blur(12px);
+      }
+
+      section {
+        margin-top: 44px;
+      }
+
+      .section-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 28px;
+        backdrop-filter: blur(2px);
+      }
+
+      h2 {
+        margin: 0 0 18px;
+        font-size: clamp(2rem, 2.6vw, 2.8rem);
+        letter-spacing: -0.04em;
+      }
+
+      .reasons {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .reason {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 22px;
+      }
+
+      .reason h3 {
+        margin: 0 0 10px;
+        font-size: 1.15rem;
+        color: var(--gold-soft);
+      }
+
+      .reason p {
+        margin: 0;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .songs-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .songs-column {
+        margin: 0;
+        padding-left: 24px;
+      }
+
+      .songs-column li {
+        margin-bottom: 10px;
+        padding: 6px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      .note {
+        margin-top: 18px;
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      .cta {
+        text-align: center;
+        padding: 30px 24px 20px;
+      }
+
+      .cta .button.primary {
+        font-size: 1.05rem;
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+
+        .reasons,
+        .songs-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-visual img {
+          height: 420px;
+        }
       }
     </style>
   </head>
   <body>
-    <article class="document">
-      <h1>ALEXANDER HAMILTON</h1>
-      <p class="subtitle">Founding Father of the United States</p>
+    <div class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">For King &amp; Country</p>
+          <h1>Powerful faith. Big sound. Real heart.</h1>
+          <p class="lead">
+            For King &amp; Country is one of the most compelling voices in modern Christian music—blending
+            cinematic production, honest lyrics, and a message that reaches far beyond the stage. Their songs
+            speak to hope, struggle, faith, and the kind of courage that moves people forward.
+          </p>
+          <div class="button-row">
+            <a class="button primary" href="https://open.spotify.com/search/For%20King%20%26%20Country/artists" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
+            <a class="button secondary" href="#songs">View Top 50 Songs</a>
+          </div>
+        </div>
 
-      <div class="gallery">
-        <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=600&q=80" alt="Dog" />
-        <img src="https://images.unsplash.com/photo-1534180477871-5d6cc81f3920?auto=format&fit=crop&w=600&q=80" alt="Cat" />
-        <img src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=600&q=80" alt="Fox" />
-      </div>
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=80" alt="For King and Country live concert" />
+        </div>
+      </header>
 
-      <p>
-        Alexander Hamilton was a prominent American statesman, military officer, and one of the most important
-        figures in the early history of the United States. Born in the Caribbean in 1755 or 1757, he rose to
-        national prominence during the American Revolution and later became a leading architect of the new
-        republic.
-      </p>
+      <main>
+        <section>
+          <div class="section-card">
+            <h2>Why they stand out</h2>
+            <div class="reasons">
+              <article class="reason">
+                <h3>Emotionally honest</h3>
+                <p> Their lyrics tackle faith, pain, purpose, and perseverance in a way that feels personal and real.</p>
+              </article>
+              <article class="reason">
+                <h3>Massive musical range</h3>
+                <p> From soaring anthems to intimate worship moments, they know how to build a song that hits hard.</p>
+              </article>
+              <article class="reason">
+                <h3>Impact beyond music</h3>
+                <p> Their work inspires people, encourages believers, and gives listeners a soundtrack for life’s biggest questions.</p>
+              </article>
+            </div>
+          </div>
+        </section>
 
-      <p>
-        Hamilton served as the first Secretary of the Treasury from 1789 to 1795. In that role, he created a plan
-        to stabilize the nation's finances, establish the United States Bank, and strengthen the federal
-        government. He also helped shape the country's economic system by promoting trade, taxation, and public
-        credit.
-      </p>
+        <section id="songs">
+          <div class="section-card">
+            <h2>Top 50 fan-favorite songs</h2>
+            <div class="songs-wrap">
+              <ol class="songs-column">
+                <li>God Only Knows</li>
+                <li>Together</li>
+                <li>Fix My Eyes</li>
+                <li>Burn the Ships</li>
+                <li>The Lion and the Lamb</li>
+                <li>The Proof of Your Love</li>
+                <li>Shoulders</li>
+                <li>Run Wild</li>
+                <li>Joy</li>
+                <li>Ain't No Grave</li>
+                <li>Relate</li>
+                <li>What Are We Waiting For?</li>
+                <li>The Rest of Our Life</li>
+                <li>Amen</li>
+                <li>This Is Love</li>
+                <li>Need a Little Love</li>
+                <li>Without You</li>
+                <li>Good God Almighty</li>
+                <li>Hills and Valleys</li>
+                <li>Love Me Like I Am</li>
+                <li>Children of the Kingdom</li>
+                <li>The Story</li>
+                <li>All I Need</li>
+                <li>Bigger</li>
+                <li>Caught in the Middle</li>
+                <li>In the Name of the Father</li>
+                <li>For Those Who Wait</li>
+                <li>Deep Water</li>
+              </ol>
 
-      <ul>
-        <li>He helped lead the Continental Army during the American Revolution.</li>
-        <li>He argued strongly in favor of a powerful central government.</li>
-        <li>He supported the creation of a national financial system and a national bank.</li>
-        <li>He wrote many of the Federalist Papers, which explained and defended the Constitution.</li>
-        <li>He was a major influence in the early development of the United States as a stable nation.</li>
-      </ul>
+              <ol class="songs-column" start="31">
+                <li>How Many Kings</li>
+                <li>The Light</li>
+                <li>Battlefield</li>
+                <li>Let It Rain</li>
+                <li>The Weight of the World</li>
+                <li>O Come, O Come Emmanuel</li>
+                <li>Hold On</li>
+                <li>Control</li>
+                <li>Never Give Up</li>
+                <li>The Coming</li>
+                <li>My Favorite Part</li>
+                <li>Kingdom</li>
+                <li>A Christmas Without You</li>
+                <li>King of the World</li>
+                <li>The Last One</li>
+                <li>The Lost</li>
+                <li>Here We Go</li>
+                <li>Better</li>
+                <li>Rejoice</li>
+                <li>Rise</li>
+                <li>Fearfully and Wonderfully Made</li>
+                <li>Everybody's Got a Story</li>
+                <li>For God Is With Us</li>
+                <li>Make a Move</li>
+                <li>Say Amen</li>
+                <li>The Human Race</li>
+                <li>Believer</li>
+                <li>Blackbird</li>
+                <li>Long Live Love</li>
+                <li>On My Own</li>
+              </ol>
+            </div>
+            <p class="note">This is a fan-favorite list celebrating some of the duo’s most beloved tracks.</p>
+          </div>
+        </section>
 
-      <p>
-        Hamilton's ideas were deeply influential in shaping American political and economic development. He believed
-        that a strong government and a sound financial system were necessary for national growth, liberty, and
-        stability. His work helped lay the foundation for the republic that would continue to evolve in the years to
-        come.
-      </p>
-
-      <p>
-        <strong>Spotify:</strong>
-        <a class="spotify" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
-      </p>
-    </article>
+        <section class="cta">
+          <a class="button primary" href="https://open.spotify.com/search/For%20King%20%26%20Country/artists" target="_blank" rel="noopener noreferrer">Stream For King &amp; Country on Spotify</a>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
